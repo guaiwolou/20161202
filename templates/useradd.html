@@ -1,41 +1,28 @@
-{% extends 'moban.html' %}
-{% block title %}CMDB|用户管理{% endblock %}
-{% block link %}
-<!-- Data Tables -->
-    <link href="/static/sfv/css/plugins/dataTables/dataTables.bootstrap.css" rel="stylesheet">
-    <link href="/static/sfv/css/plugins/dataTables/dataTables.responsive.css" rel="stylesheet">
-    <link href="/static/sfv/css/plugins/dataTables/dataTables.tableTools.min.css" rel="stylesheet">
+{% extends "moban.html" %}
+{% block titie %} }CMDB|用户添加{% endblock %}
+
+{% block css %}
+    <link href="/static/sfv/css/plugins/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css" rel="stylesheet">
+    <link href="/static/sfv/css/plugins/iCheck/custom.css" rel="stylesheet">
+
 {% endblock %}
-{% block users %} class="active"{% endblock %}
-{% block user %} class="active"{% endblock %}
 {% block top_nav %}
     <li>
-        <a href="/user/">用户管理</a>
+            <a href="javascript:void(0);">用户</a>
     </li>
     <li class="active">
-        <strong>用户</strong>
+            <strong>用户添加</strong>
     </li>
 {% endblock %}
-{% block content %}
-    <br>
-        <!-- Button trigger modal -->
-<button type="button" class="btn btn-primary " data-toggle="modal" data-target="#myModal">
-  创建用户
-</button>
-    </br>
-    <br>
 
-<!-- Modal -->
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="myModalLabel">创建用户</h4>
-      </div>
-      <div class="modal-body">
 
-          <form  class="create_form form-horizontal">
+
+ {% block content %}
+
+            <div class="row wrapper border-bottom white-bg page-heading">
+
+                        <div class="ibox-content">
+                            <form  action="/user/add/save/" method="post" class="form-horizontal">
 
                                 <div class="form-group"><label class="col-sm-2 control-label">用户名:</label>
                                     <div class="col-sm-10"><input type="text" class="form-control" name="username" value="{{username}}"></div>
@@ -76,13 +63,13 @@
 
                                     <div class="col-sm-10">
                                             <label class="checkbox-inline">
-                                              <input type="checkbox" value="basketball"> 篮球
+                                              <input type="checkbox" value="option1"> 篮球
                                             </label>
                                             <label class="checkbox-inline">
-                                              <input type="checkbox"  value="football"> 足球
+                                              <input type="checkbox"  value="option2"> 足球
                                             </label>
                                             <label class="checkbox-inline">
-                                              <input type="checkbox"  value="pingpang"> 乒乓球
+                                              <input type="checkbox"  value="option3"> 乒乓球
                                             </label>
                                         </label>
                                     </div>
@@ -114,86 +101,27 @@
                                     <div class="col-sm-10">
                                         <input type="email" class="form-control" name="email" value="{{ email }}"></div>
                                 </div>
+
+
+
+                                <div class="form-group">
+                                    <div class="col-sm-4 col-sm-offset-2">
+                                        <button class="btn btn-white" type="submit">取消</button>
+                                        <button class="btn btn-primary" type="submit">创建</button>
+                                    </div>
+                                </div>
                             </form>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-        <button type="button" class="create_btn btn btn-primary">创建</button>
-      </div>
-    </div>
-  </div>
-</div>
+                        </div>
+            </div>
 
 
- <table class="users_table table table-striped table-bordered table-hover">
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>姓名</th>
-                <th>密码</th>
-                <th>年龄</th>
-                <th>操作</th>
-            </tr>
-        </thead>
 
-        <tbody>
-            {% for user in users %}
-            <tr>
-                <td>{{ user[0] }}</td>
-                <td>{{ user[1] }}</td>
-                <td>******</td>
-                <td>{{ user[2] }}</td>
-                <td>
-                   <a href="/user/views/?uid={{ user[0] }}">修改</a>
-                    <a href="javascript:void(0);" data-uid="{{ user[0] }}" class="btn_delete">删除</a>
-                </td>
-            </tr>
-            {% endfor %}
-        </tbody>
-
-    </table>
-{% endblock %}
-{% block script %}
- <!-- Data Tables -->
+ {% endblock %}
+{% block script %}<!-- Data Tables -->
     <script src="/static/sfv/js/plugins/dataTables/jquery.dataTables.js"></script>
     <script src="/static/sfv/js/plugins/dataTables/dataTables.bootstrap.js"></script>
     <script src="/static/sfv/js/plugins/dataTables/dataTables.responsive.js"></script>
     <script src="/static/sfv/js/plugins/dataTables/dataTables.tableTools.min.js"></script>
+
 {% endblock %}
-{% block js %}
-$(document).ready(function() {
-    $('.users_table').dataTable({
-            responsive: true,
-            "dom": 'T<"clear">lfrtip',
-            "tableTools": {
-                "sSwfPath": "/static/sfv/js/plugins/dataTables/swf/copy_csv_xls_pdf.swf"
-            }
-    });
-
-    jQuery('.create_btn').on('click',function(){
-        jQuery.post('/user/save/json/',jQuery('.create_form').
-        serializeArray(),
-        function(data){
-            if(data['code']===200){
-                window.location.reload()
-            }else if(data['code']===400){
-                alert(data['error'])
-                }
-                },'json')
-    });
-
-    jQuery('.btn_delete').on('click',function(){
-    //发起请求
-        var url = '/user/delete/?uid='+jQuery(this).data('uid');
-        if (confirm('确定删除吗？')){
-            //发起一个请求
-            window.location.replace(url);
-        }
-        //发起一个请求
-
-        window.location.replace(url);
-    });
-
-
-    });
-{% endblock %}
+{% block js %}{% endblock %}

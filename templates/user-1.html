@@ -6,7 +6,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>{% block title %}{% endblock %}</title>
+    <title>INSPINIA | Layouts</title>
 
     <link href="/static/sfv/css/bootstrap.min.css" rel="stylesheet">
     <link href="/static/sfv/font-awesome/css/font-awesome.css" rel="stylesheet">
@@ -14,8 +14,6 @@
     <link href="/static/sfv/css/animate.css" rel="stylesheet">
     <link href="/static/sfv/css/style.css" rel="stylesheet">
 
-    {% block link %}{% endblock %}
-    {% block style %}{% endblock %}
 </head>
 
 <body>
@@ -38,7 +36,6 @@
                     CMDB
                 </div>
             </li>
-
             <li>
                 <a href="index.html"><i class="fa fa-th-large"></i> <span class="nav-label">Dashboards</span> <span class="fa arrow"></span></a>
                 <ul class="nav nav-second-level collapse">
@@ -48,30 +45,20 @@
                     <li><a href="dashboard_4_1.html">Dashboard v.4</a></li>
                 </ul>
             </li>
-
-            <li{% block users %}{% endblock %}>
-                <a href="javascript:void(0);"><i class="fa fa-users"></i> <span class="nav-label">用户管理</span><span class="fa arrow"></span></a>
-                <ul class="nav nav-second-level collapse">
-                    <li{% block user %}{% endblock %}><a href="/user/">用户</a></li>
-                    <li{% block user_add %}{% endblock %}><a href="/user/add/">用户添加</a></li>
-                    <li><a href="graph_morris.html">Morris.js Charts</a></li>
-                </ul>
-            </li>
-
-            <li {% block servers %}{% endblock %}>
-                <a href="javascript:void(0);"><i class="fa fa-th-large"></i> <span class="nav-label">机房管理</span> <span class="fa arrow"></span></a>
-                <ul class="nav nav-second-level collapse">
-                    <li {% block server %}{% endblock %}><a href="/server/">机房 </a></li>
-                    <li><a href="dashboard_2.html">Dashboard v.2</a></li>
-                    <li><a href="dashboard_3.html">Dashboard v.3</a></li>
-                    <li><a href="dashboard_4_1.html">Dashboard v.4</a></li>
-                </ul>
-            </li>
-
-
-
-             <li>
+            <li class="active">
                 <a href="layouts.html"><i class="fa fa-diamond"></i> <span class="nav-label">Layouts</span></a>
+            </li>
+            <li>
+                <a href="#"><i class="fa fa-bar-chart-o"></i> <span class="nav-label">Graphs</span><span class="fa arrow"></span></a>
+                <ul class="nav nav-second-level collapse">
+                    <li><a href="graph_flot.html">Flot Charts</a></li>
+                    <li><a href="graph_morris.html">Morris.js Charts</a></li>
+                    <li><a href="graph_rickshaw.html">Rickshaw Charts</a></li>
+                    <li><a href="graph_chartjs.html">Chart.js</a></li>
+                    <li><a href="graph_chartist.html">Chartist</a></li>
+                    <li><a href="graph_peity.html">Peity Charts</a></li>
+                    <li><a href="graph_sparkline.html">Sparkline Charts</a></li>
+                </ul>
             </li>
         </ul>
     </div>
@@ -103,7 +90,12 @@
     <div class="col-lg-10">
         <br>
         <ol class="breadcrumb">
-           {% block top_nav %}{% endblock %}
+            <li>
+                <a href="index.html">Home</a>
+            </li>
+            <li class="active">
+                <strong>Layouts</strong>
+            </li>
         </ol>
     </div>
     <div class="col-lg-2">
@@ -111,8 +103,8 @@
     </div>
 </div>
 <!-- body -->
-{% block content %}
-{% endblock %}
+
+
 
 
 
@@ -129,6 +121,9 @@
 </div>
 </div>
 
+
+
+<!-- Mainly scripts -->
 <script src="/static/sfv/js/jquery-2.1.1.js"></script>
 <script src="/static/sfv/js/bootstrap.min.js"></script>
 <script src="/static/sfv/js/plugins/metisMenu/jquery.metisMenu.js"></script>
@@ -137,9 +132,10 @@
 <!-- Custom and plugin javascript -->
 <script src="/static/sfv/js/inspinia.js"></script>
 <script src="/static/sfv/js/plugins/pace/pace.min.js"></script>
+
 <script src="/static/sfv/js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
-{% block script %}{% endblock %}
-<script>{% block js %}{% endblock %}</script>
+
+
 <script>
     $(document).ready(function(){
 
